@@ -1,25 +1,34 @@
 import './assets/main.css'
 
+import { VueFire, VueFireAuth } from 'vuefire'
+
+
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 
 import { getFirebase } from './firebase';
-import { initializeApp } from 'firebase/app';
 
 const initializeFirebase = new Promise((resolve, reject) => {
-  resolve(getFirebase());
+  resolve(getFirebase().firebaseApp);
 });
 
-const appwork = initializeFirebase.then( () => {
+const appwork = initializeFirebase.then( (firebaseApp) => {
   return( new Promise((resolve, reject) => {
-           resolve(createApp(App));
+           resolve(createApp(App)
+                     .use(VueFire, {
+                       firebaseApp,
+                         modules: [
+                         VueFireAuth(),
+                         ],
+                       })
+                     .use(router)
+                  );
            })
         );
   });
 
 appwork.then( (app) => {
-      app.use(router);
       app.mount('#app');
 });
 
