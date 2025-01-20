@@ -1,11 +1,15 @@
-import './assets/main.css'
+// import './assets/main.css'
 
 import { VueFire, VueFireAuth } from 'vuefire'
 
 
 import { createApp } from 'vue'
 import App from './App.vue'
-import router from './router'
+
+// import router from './router'
+
+import { createRouter, createWebHistory } from 'vue-router'
+import { getCurrentUser } from 'vuefire'
 
 import { getFirebase } from './firebase';
 
@@ -28,6 +32,11 @@ const routes = [
   { path: '/forbidden', component: Forbidden, name: 'Forbidden' },
   // { path: '/mouse', component: Mouse, name: 'Mouse' },
 ]
+
+const router = createRouter({ 
+  history: createWebHistory(),
+  routes
+})
 
 const initializeFirebase = new Promise((resolve, reject) => {
   resolve(getFirebase().firebaseApp);
