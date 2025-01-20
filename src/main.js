@@ -38,6 +38,14 @@ const router = createRouter({
   routes
 })
 
+router.beforeEach(async (to, from) => {
+  const user = await getCurrentUser()
+  to.meta.user = user
+  if(to.meta.isProtected && !user) {
+    return { name: 'Forbidden' }
+  }
+})
+
 const initializeFirebase = new Promise((resolve, reject) => {
   resolve(getFirebase().firebaseApp);
 });
