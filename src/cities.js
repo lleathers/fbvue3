@@ -1,9 +1,14 @@
 import { getFirestore, collection, query, where, doc, getDocs } from 'firebase/firestore'
+
+// import { useFirestore } from 'vuefire'
+
 import { useCollection, useDocument } from 'vuefire'
 import { ref, computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 
 const db = getFirestore();
+// const db = useFirestore();
+
 const cityCol = collection(db, 'cities')
 const cityLookupCol = doc(db, 'lookups/cities')
 
@@ -30,7 +35,8 @@ export function useCityLookup() {
 export function useCity(routeCallback) {
   const route = useRoute()
   const cityId = routeCallback(route);
-  return useDocument(doc(db, 'cities', cityId))
+  // return useDocument(doc(db, 'cities', cityId));
+  return { name: "Missy Elliot", country: "Flatbush" }
 }
 
 function filterWhere(whereQuery) {

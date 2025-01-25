@@ -18,7 +18,7 @@
         <router-link :to="{ name: 'Firestore'}">Neighbors</router-link>
       </li>
       <li>
-        <router-link :to="{ name: 'Concierge', params: { id: 'pfTiAN5q2k0UN8hVNW1a'} }">Concierge</router-link>
+        <router-link :to="{ name: 'Concierge', params: { id: '9LbSJcmqH3VNX64xjM4H'} }">Concierge</router-link>
       </li>
     </ul>
   </Container>

@@ -13,9 +13,9 @@
 
 <script setup>
 import Container from '../components/Container.vue'
-import { getAuth, signInWithRedirect, GoogleAuthProvider, signOut } from 'firebase/auth'
-import { useCurrentUser } from 'vuefire';
+import { signInWithRedirect, GoogleAuthProvider, signOut } from 'firebase/auth'
+import { useCurrentUser, useFirebaseAuth } from 'vuefire';
 
-const auth  = getAuth()
+const auth  = useFirebaseAuth();
 const user = useCurrentUser();
 </script>
