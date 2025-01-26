@@ -23,14 +23,44 @@
 import Container from '../components/Container.vue'
 // import { useCitiesQuery, useCityLookup } from '../cities'
 // import { useCitiesQuery } from '../cities'
-import { useDocument } from 'vuefire'
-import { getFirestore, doc } from 'firebase/firestore'
+import { getFirestore, collection, query, where, doc, getDocs } from 'firebase/firestore'
+import { useRouter, useRoute } from 'vue-router'
+// import { filterWhere } from '../cities'
+import { ref, computed } from 'vue'
+import { useCollection, useDocument } from 'vuefire'
+
 
 const db = getFirestore();
+
+function filterWhere(whereQuery) {
+  return whereQuery
+    .filter(v => v != null)
+    .map(v => where(...v))
+}
 
 /* const { cities, setQuery } = useCitiesQuery(route => [
   route.query.country && ['country', '==', route.query.country],
 ]); */
+
+const cityCol = collection(db, 'cities');
+
+function useCitiesQuery(queryCallback) {
+  const router = useRouter()
+  const route = useRoute()
+  const criteriaList = filterWhere(queryCallback(route))
+  const criteria = ref(criteriaList)
+  const citySource = computed(() => query(cityCol, ...criteria.value))
+  const cities = useCollection(citySource)
+  function setQuery({ whereQuery, onRoute }) {
+    const whereList = filterWhere(whereQuery);
+    onRoute(router)
+    // This sets the reactive ref and tells the query to recompute
+    criteria.value = whereList
+  }
+  return { setQuery, cities }
+}
+
+
 
 const cityLookupCol = doc(db, 'lookups/cities')
 
@@ -41,7 +71,7 @@ function useCityLookup() {
 const lookup = useCityLookup()
 
 
-/* function triggerChange(clickEvent) {
+function triggerChange(clickEvent) {
   let country = clickEvent.target.textContent
   let query = { country }
   let whereList = ['country', '==', country];
@@ -54,5 +84,5 @@ const lookup = useCityLookup()
     whereQuery: [whereList],
     onRoute: router => router.replace({ name: 'Firestore', query })
   })
-} */
+}
 </script>
