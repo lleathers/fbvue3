@@ -10,8 +10,7 @@ import Auth from './pages/Auth.vue'
 import Firestore from './pages/Firestore.vue'
 import Protected from './pages/Protected.vue'
 import Forbidden from './pages/Forbidden.vue'
-
-// import City from './pages/City.vue'
+import City from './pages/City.vue'
 import Concierge from './pages/Concierge.vue'
 import Mouse from './pages/Mouse.vue'
 
@@ -20,7 +19,7 @@ const routes = [
   { path: '/auth', component: Auth, name: "Auth" },
   { path: '/firestore', component: Firestore, name: "Firestore", meta: { isProtected: true } },
   { path: '/protected', component: Protected, name: "Protected", meta: { isProtected: true } },
-  // { path: '/city/:id', component: City, name: 'City', meta: { isProtected: true } },
+  { path: '/city/:id', component: City, name: 'City', meta: { isProtected: true } },
   { path: '/city/:id', component: Concierge, name: 'Concierge', meta: { isProtected: true } },
   { path: '/forbidden', component: Forbidden, name: 'Forbidden' },
   { path: '/mouse', component: Mouse, name: 'Mouse' },

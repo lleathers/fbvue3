@@ -4,18 +4,17 @@
     <router-link :to="{ name: 'Home' }">Go to Home</router-link>
     <h3>Filter by</h3>
     <div class="gap-8 button-list" v-if="lookup">
-      <!-- <button v-for="name in lookup.names" @click="triggerChange"> -->
-      <button v-for="name in lookup.names">
+      <button v-for="name in lookup.names" @click="triggerChange">
         {{ name }}
       </button>
     </div>
-    <!-- <ul class="gap-8 result-list">
+    <ul class="gap-8 result-list">
       <li v-for="city in cities">
         <router-link :to="{ name: 'City', params: { id: city.id } }">
           {{ city.name }}, {{  city.country }}
         </router-link>
       </li>
-    </ul> -->
+    </ul>
   </Container>
 </template>
 
@@ -38,9 +37,6 @@ function filterWhere(whereQuery) {
     .map(v => where(...v))
 }
 
-/* const { cities, setQuery } = useCitiesQuery(route => [
-  route.query.country && ['country', '==', route.query.country],
-]); */
 
 const cityCol = collection(db, 'cities');
 
@@ -60,7 +56,9 @@ function useCitiesQuery(queryCallback) {
   return { setQuery, cities }
 }
 
-
+const { cities, setQuery } = useCitiesQuery(route => [
+  route.query.country && ['country', '==', route.query.country],
+]);
 
 const cityLookupCol = doc(db, 'lookups/cities')
 
@@ -69,7 +67,6 @@ function useCityLookup() {
 }
 
 const lookup = useCityLookup()
-
 
 function triggerChange(clickEvent) {
   let country = clickEvent.target.textContent
