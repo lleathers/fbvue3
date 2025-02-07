@@ -1,4 +1,4 @@
-# FBVUE -- Firebase integration with Vue 3 Template
+# FBVUE3 -- Firebase integration with Vue 3 Template
 
 ## AKA noemulate
 
