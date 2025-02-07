@@ -1,12 +1,15 @@
 <template>
   <Container>
-    <h1>NeighborPays <span class="accent">Dashboard</span></h1>
+
+    <img alt="NeighborPays logo" class="logo" src="../assets/jmlwnb00.png" width="100" height="100" />
+
+    <h1>NeighborPays <span class="accent">!</span></h1>
     <div>
       <button>
         <router-link :to="{ name: 'Firestore' }">Let's go</router-link>
       </button>
     </div>
-    <h3>There's a lot to share.</h3>
+    <h3>Find your neighbor.</h3>
     <ul class="gap-8">
       <li>
         <router-link :to="{ name: 'Auth'}">Authentication</router-link>
